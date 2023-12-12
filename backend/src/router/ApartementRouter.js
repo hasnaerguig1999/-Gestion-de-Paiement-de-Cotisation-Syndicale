@@ -1,4 +1,7 @@
 
+// // import authMiddleware from '../middlewares/authMiddleware';
+
+// // Postrouter.use(authMiddleware);
 const express = require('express');
 const {  createApartement, getAllApartements , updateApartementById  ,deleteApartementById,getApartementById  } = require('../controllers/Apartement');
 

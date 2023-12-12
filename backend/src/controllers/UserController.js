@@ -22,7 +22,7 @@ const login = asyncHandler(async (req, res) => {
         id: user._id,
         email: user.email,
         name: user.name,
-        role: user.role, // Include the role in the response
+        role: user.role, 
         token: generateToken(user._id)
       }
     });
@@ -36,14 +36,23 @@ const login = asyncHandler(async (req, res) => {
 // @Route /api/auth/register
 // @Method POST
 const register = asyncHandler(async (req, res) => {
-  const { email, name, password, role } = req.body;
+  const { email, name, password } = req.body;
+  if (!email || !name || !password) {
+    res.status(400).json({ error: 'Name, email, and password are required' });
+    return;
+  }
 
   const user = new User({
     email,
     name,
-    password,
-    role: role || 'user' 
+    password
   });
+  // try {
+  //   await user.validate();
+  // } catch (error) {
+  //   res.status(400).json({ success: false, error: error.message });
+  //   return;
+  // }
 
   await user.save();
 
@@ -52,7 +61,7 @@ const register = asyncHandler(async (req, res) => {
     user: {
       email: user.email,
       name: user.name,
-      role: user.role // Include the role in the response
+      // role: user.role 
     }
   });
 });

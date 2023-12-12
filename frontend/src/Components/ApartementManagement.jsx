@@ -38,7 +38,7 @@ export default function  ApartementManagement() {
                   <thead>
                     <tr>
                       <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
-                      <th className="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">Numero</th>
+                      <th className="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">Number</th>
                       <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
                       <th className="text-secondary opacity-7"></th>

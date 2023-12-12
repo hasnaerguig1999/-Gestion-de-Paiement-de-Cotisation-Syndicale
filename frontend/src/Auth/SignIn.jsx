@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { signin } from '../redux/Store/Actions/AuthAction';
 
-export default function SignIn() {
+
+
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = () => {
+    dispatch(signin(email, password));
+  };
+  
+
   return (
     <>
     <div className="main-content mt-0">
@@ -25,37 +38,42 @@ export default function SignIn() {
               </div>
               <div className="card-body">
                 <div className="card-body">
-                <form role="form" class="text-start">
-                  <div class="input-group input-group-outline my-3">
-                    <input type="email" class="form-control" placeholder='Email' />
+                <form  className="text-start">
+                  <div className="input-group input-group-outline my-3">
+                    <input type="email" className="form-control" placeholder='Email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} />
                   </div>
-                  <div class="input-group input-group-outline mb-3">
-                    <input type="password" class="form-control" placeholder='Password' />
+                  <div className="input-group input-group-outline mb-3">
+                    <input type="password" className="form-control" placeholder='Password' 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}/>
                   </div>
-                  <div class="form-check form-switch d-flex align-items-center mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" checked />
-                    <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
+                  <div className="form-check form-switch d-flex align-items-center mb-3">
+                    <input className="form-check-input" type="checkbox" id="rememberMe" />
+                    <label className="form-check-label mb-0 ms-3" >Remember me</label>
                   </div>
-                  <div class="text-center">
-                    <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
+                  <div className="text-center">
+                    <button type="button" className="btn bg-gradient-primary w-100 my-4 mb-2" onClick={handleSignIn}>Sign in</button>
                   </div>
-                  <p class="mt-4 text-sm text-center">
+                  <p className="mt-4 text-sm text-center">
                     Don't have an account?
-                    <a href="./SignUp" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="./SignUp" className="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </form>
                 </div>
-                <div className="card-footer text-center pt-0 px-lg-2 px-1">
+                 <div className="card-footer text-center pt-0 px-lg-2 px-1">
                     <a href="./Dashboard" className="text-primary text-gradient font-weight-bold">return to dashboard</a>
                   
+                  </div>
                 </div>
               </div>
             </div>
-              </div>
-            </div>
           </div>
-     </div>
+        </div>
+      </div>
     </div>
     </>
   )
 }
+export default SignIn;

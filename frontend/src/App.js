@@ -5,16 +5,16 @@ import SignUp from './Auth/SignUp'
 import SignIn from './Auth/SignIn'
 import AddApartement from './Components/AddApartement'
 import EditApartement from './Components/EditApartement'
-import {BrowserRouter as Router,Routes,Route, Form} from "react-router-dom"
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
+
+
 
 function App() {
   return (
     <>
     <div className="App">
-    {/* <div className="g-sidenav-show  bg-gray-200" >
-      <Sidebar />
-      </div> */}
-    </div>
+      
+   
     <Router>
         <Routes>
         <Route path="/ApartementManagement" element={<ApartementManagement/>}></Route>
@@ -32,6 +32,7 @@ function App() {
     
       
     </Router>
+    </div>
     </>
   );
 }
