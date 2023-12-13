@@ -1,15 +1,15 @@
 
 import { NavLink } from 'react-router-dom';
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 
 
 export default function Sidebar() {
-    // const [currentPage, setCurrentPage] = useState('');
-  
-    // const handlePageChange = (page) => {
-    //   setCurrentPage(page);
-    // };
+  // const name = useSelector(state => state.name);
+  const name = useSelector(state => state.auth.user?.name);
+
+
   return (
     <>
 <div className="g-sidenav-show bg-gray-200"> 
@@ -48,7 +48,7 @@ export default function Sidebar() {
             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i className="material-icons opacity-10">person</i>
             </div>
-            <span className="nav-link-text ms-1">Supper Admin</span>
+            <span className="nav-link-text ms-1"> {name}!</span>
           </NavLink>
         </li>
         <li className="nav-item">

@@ -22,7 +22,9 @@ function App() {
         <Route path="/SignIn" element={<SignIn/>}></Route>
         <Route path="/AddApartement" element={<AddApartement/>}></Route>
         <Route path="/Dashboard" element={<Dashboard/>}></Route>
-        <Route path="/EditApartement" element={<EditApartement/>}></Route>
+        <Route path="/EditApartement" element={<EditApartement/>}>
+        <Route path="/EditApartement/:id" element={<EditApartement/>} />
+        </Route>
         <Route path="/AddApartement" element={<AddApartement/>}></Route>
         <Route path="/ApartementManagement" element={<ApartementManagement/>}></Route>
 

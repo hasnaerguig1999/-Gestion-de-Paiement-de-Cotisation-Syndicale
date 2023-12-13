@@ -1,6 +1,50 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getApartmentById, updateApartment } from '../redux/Store/Actions/ApartementAction';
 
 export default function EditApartement() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+
+  const apartment = useSelector((state) => state.apartment); 
+
+  console.log(apartment);
+
+  const [apartmentData, setApartmentData] = useState({
+    client: '',
+    number: '',
+    date: '',
+  });
+
+  useEffect(() => {
+    // Dispatch an action to get apartment details by ID
+    if (id) {
+      dispatch(getApartmentById(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    // Update local state when apartment details change
+    if (apartment) {
+      setApartmentData(apartment);
+    }
+  }, [apartment]);
+
+  const handleInputChange = (e) => {
+    setApartmentData({ ...apartmentData, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    // Dispatch an action to update the apartment
+    dispatch(updateApartment(id, apartmentData));
+  };
+
+  // if (!apartment) {
+  //   return <p>Loading...</p>;
+  // }
+
   return (
     <>
     <div className="main-content mt-0">
@@ -25,26 +69,49 @@ export default function EditApartement() {
               </div>
               <div className="card-body">
                 <div className="card-body">
-                  <form role="form">
-                    <div className="input-group input-group-outline mb-3">
-                        <input type="hidden" className="form-control"  name="id" />
-                      </div>
-                    <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="Client" name="client" />
-                    </div>
-                    <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="Numero" name="numero" />
-                    </div>
-                    <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="status" name="status" />
-                    </div>
-                    <div className="input-group input-group-outline mb-3">
-                        <input type="date" className="form-control"  name="date" />
-                      </div>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Save</button>
-                    </div>
-                  </form>
+                <form role="form">
+                        <div className="input-group input-group-outline mb-3">
+                          <input type="hidden" className="form-control" name="id" value={id} readOnly />
+                        </div>
+                        <div className="input-group input-group-outline mb-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Client"
+                            name="client"
+                            value={apartmentData.client || ''}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="input-group input-group-outline mb-3">
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Numero"
+                            name="number"
+                            value={apartmentData.number || ''}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="input-group input-group-outline mb-3">
+                          <input
+                            type="date"
+                            className="form-control"
+                            name="date"
+                            value={apartmentData.date || ''}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="text-center">
+                          <button
+                            type="button"
+                            className="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0"
+                            onClick={handleSave}
+                          >
+                            Save
+                          </button>
+                        </div>
+                      </form>
                 </div>
                 <div className="card-footer text-center pt-0 px-lg-2 px-1">
                     <a href="./Dashboard" className="text-primary text-gradient font-weight-bold">return to dashboard</a>

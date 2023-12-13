@@ -42,6 +42,8 @@ exports.updateApartementById = async (req, res) => {
     const updatedApartement = await Apartement.findByIdAndUpdate(
       req.params.id,
       req.body,
+      
+      
       { new: true }
     );
     if (!updatedApartement) {

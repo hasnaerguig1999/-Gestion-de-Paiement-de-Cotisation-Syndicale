@@ -1,9 +1,23 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebars/Sidebar'
-import AddApartement from './AddApartement'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllApartments  } from '../redux/Store/Actions/ApartementAction'; 
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 
 export default function  ApartementManagement() {
+  const dispatch = useDispatch();
+  const apartments = useSelector((state) => {
+    // console.log(state); 
+    return state.apartements.apartments;
+  });
+  
+
+  useEffect(() => {
+    dispatch(getAllApartments());
+  }, [dispatch]);
   return (
     <>
     <div className="g-sidenav-show  bg-gray-200"  style={{ height: '158vh' }} >
@@ -47,135 +61,45 @@ export default function  ApartementManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                        {apartments.map((apartment) => (
+                    <tr key={apartment._id}>
                       <td>
                         <div className="d-flex px-2 py-1">
                           <div>
                             <img src="../assets/img/appartements/appartement 1.jpg" className="avatar avatar-sm me-3 border-radius-lg" alt="user1" />
                           </div>
                           <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">John Michael</h6>
+                            <h6 className="mb-0 text-sm">{apartment.client}</h6>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p className="text-xs font-weight-bold mb-0">lamia</p>
+                        <p className="text-xs font-weight-bold mb-0">{apartment.number}</p>
                       </td>
                       <td className="align-middle text-center text-sm">
-                        <span className="badge badge-sm bg-gradient-success">Payé</span>
+                        <span className={`badge badge-sm ${apartment.status ? 'bg-gradient-success' : 'bg-gradient-secondary'}`}>
+                            {apartment.status ? 'Payé' : 'Impayé'}
+                        </span>
                       </td>
                       <td className="align-middle text-center">
-                        <span className="text-secondary text-xs font-weight-bold">23/04/18</span>
+                        <span className="text-secondary text-xs font-weight-bold">{apartment.date}</span>
                       </td>
                       <td className="align-middle">
-                        <a href="./EditApartement" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
+                        <Link to={`/EditApartement/`} className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <FaEdit />
+                        </Link>
                       </td>
                       
                       
                       <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Delete
+                        <a href="/delete" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <MdDelete />
+
                         </a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        <div className="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/appartements/appartement 1.jpg" className="avatar avatar-sm me-3 border-radius-lg" alt="user2" />
-                          </div>
-                          <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">Alexa Liras</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-xs font-weight-bold mb-0">lamia</p>
-                      </td>
-                      <td className="align-middle text-center text-sm">
-                        <span className="badge badge-sm bg-gradient-secondary">impayé</span>
-                      </td>
-                      <td className="align-middle text-center">
-                        <span className="text-secondary text-xs font-weight-bold">11/01/19</span>
-                      </td>
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                      
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/appartements/appartement 1.jpg" className="avatar avatar-sm me-3 border-radius-lg" alt="user3" />
-                          </div>
-                          <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">Laurent Perrier</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-xs font-weight-bold mb-0">lamia</p>
-                      </td>
-                      <td className="align-middle text-center text-sm">
-                        <span className="badge badge-sm bg-gradient-success">Payé</span>
-                      </td>
-                      <td className="align-middle text-center">
-                        <span className="text-secondary text-xs font-weight-bold">19/09/17</span>
-                      </td>
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                      
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/appartements/appartement 1.jpg" className="avatar avatar-sm me-3 border-radius-lg" alt="user4" />
-                          </div>
-                          <div className="d-flex flex-column justify-content-center">
-                            <h6 className="mb-0 text-sm">Michael Levi</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-xs font-weight-bold mb-0">Matar</p>
-                      </td>
-                      <td className="align-middle text-center text-sm">
-                        <span className="badge badge-sm bg-gradient-success">Payé</span>
-                      </td>
-                      <td className="align-middle text-center">
-                        <span className="text-secondary text-xs font-weight-bold">24/12/08</span>
-                      </td>
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                      
-                      <td className="align-middle">
-                        <a href="javascript:;" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
+                 
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -191,3 +115,4 @@ export default function  ApartementManagement() {
     </>
   )
 }
+

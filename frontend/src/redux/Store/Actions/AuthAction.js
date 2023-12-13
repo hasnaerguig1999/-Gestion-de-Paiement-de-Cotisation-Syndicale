@@ -7,7 +7,7 @@ export const signup = (name, email, password) => async (dispatch) => {
   try {
     dispatch({ type: types.AUTH_REQUEST });
     const { data } = await axios.post('/auth/register', { name, email, password });
-console.log(data)
+     console.log(data)
     dispatch({
       type: types.REGISTER_SUCCESS,
       payload: data,
@@ -21,19 +21,17 @@ console.log(data)
 };
 
 
+
 export const signin = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: types.AUTH_REQUEST });
-    const { data } = await axios.post('/auth/login', {  email, password });
-console.log(data)
+    const { data } = await axios.post('/auth/login', { email, password });
+
     dispatch({
-      type: types.LOGIN_SUCCESS,
+      type: 'LOGIN_SUCCESS',
       payload: data,
     });
+    
   } catch (error) {
-    dispatch({
-      type: types.AUTH_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-    });
   }
 };

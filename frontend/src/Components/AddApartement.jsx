@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createApartment } from '../redux/Store/Actions/ApartementAction';
 
 export default function AddApartement() {
+  const dispatch = useDispatch();
+  const [apartmentData, setApartmentData] = useState({
+    client: '',
+    number: '',
+    date: '',
+  });
+
+  const handleInputChange = (e) => {
+    setApartmentData({ ...apartmentData, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    dispatch(createApartment(apartmentData));
+  };
   return (
     <>
     <div className="main-content mt-0">
@@ -30,19 +46,18 @@ export default function AddApartement() {
                         <input type="hidden" className="form-control"  name="id" />
                       </div>
                     <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="Client" name="client" />
+                      <input type="text" className="form-control" placeholder="Client" name="client" onChange={handleInputChange}/>
                     </div>
                     <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="Numero" name="numero" />
+                      <input type="text" className="form-control" placeholder="Numero" name="number" onChange={handleInputChange}/>
                     </div>
                     <div className="input-group input-group-outline mb-3">
-                      <input type="text" className="form-control" placeholder="status" name="status" />
-                    </div>
-                    <div className="input-group input-group-outline mb-3">
-                        <input type="date" className="form-control"  name="date" />
+                        <input type="date" className="form-control"  name="date" onChange={handleInputChange}/>
                       </div>
                     <div className="text-center">
-                      <button type="button" className="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Save</button>
+                      <button type="button" className="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0"
+                       onClick={handleSave}
+                      >Save</button>
                     </div>
                   </form>
                 </div>
