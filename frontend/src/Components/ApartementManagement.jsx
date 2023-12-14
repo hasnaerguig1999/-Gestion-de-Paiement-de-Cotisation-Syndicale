@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebars/Sidebar'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllApartments, deleteApartement } from '../redux/Store/Actions/ApartementAction';
+import { getAllApartments, deleteApartement,updateApartmentStatus } from '../redux/Store/Actions/ApartementAction';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
@@ -35,7 +35,14 @@ export default function ApartementManagement() {
     document.body.appendChild(alertDiv);
     setTimeout(() => {
       alertDiv.remove();
-    }, 3000);
+    }, 5000);
+  };
+
+
+  const handleStatusChange = (apartmentId, currentStatus) => {
+    const newStatus = !currentStatus; 
+    dispatch(updateApartmentStatus(apartmentId, newStatus));
+    showAlert(`Apartment status changed to ${newStatus ? 'Payé' : 'Impayé'}!`, '#E91E63');
   };
 
 
@@ -102,7 +109,7 @@ export default function ApartementManagement() {
                                 <p className="text-xs font-weight-bold mb-0">{apartment.number}</p>
                               </td>
                               <td className="align-middle text-center text-sm">
-                                <span className={`badge badge-sm ${apartment.status ? 'bg-gradient-success' : 'bg-gradient-secondary'}`}>
+                                <span className={`badge badge-sm ${apartment.status ? 'bg-gradient-success' : 'bg-gradient-secondary'}`} onClick={() => handleStatusChange(apartment._id, apartment.status)}>
                                   {apartment.status ? 'Payé' : 'Impayé'}
                                 </span>
                               </td>

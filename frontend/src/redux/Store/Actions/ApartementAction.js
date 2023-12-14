@@ -13,6 +13,7 @@ export const UPDATE_APARTMENT_FAILURE = 'UPDATE_APARTMENT_FAILURE';
 export const DELETE_APARTEMENT_REQUEST = 'DELETE_APARTEMENT_REQUEST';
 export const DELETE_APARTEMENT_SUCCESS = 'DELETE_APARTEMENT_SUCCESS';
 export const DELETE_APARTEMENT_FAILURE = 'DELETE_APARTEMENT_FAILURE';
+export const UPDATE_APARTMENT_STATUS = 'UPDATE_APARTMENT_STATUS';
 
 
 export const getAllApartmentsSuccess = (apartments) => ({
@@ -116,5 +117,22 @@ export const deleteApartement = (apartementId) => async (dispatch) => {
   } catch (error) {
     dispatch(deleteApartementFailure(error.message));
     alert(`Error deleting apartment: ${error.message}`);
+  }
+};
+
+export const updateApartmentStatus = (apartmentId, newStatus) => async (dispatch) => {
+  try {
+    // Make the API call to update the status
+    const response = await axios.put(`/apartement/${apartmentId}`, { status: newStatus });
+
+    if (response.status === 200) {
+      // If the API call is successful, dispatch the action to update the state
+      dispatch({
+        type: UPDATE_APARTMENT_STATUS,
+        payload: { apartmentId, newStatus },
+      });
+    }
+  } catch (error) {
+    console.error('Error updating apartment status:', error);
   }
 };

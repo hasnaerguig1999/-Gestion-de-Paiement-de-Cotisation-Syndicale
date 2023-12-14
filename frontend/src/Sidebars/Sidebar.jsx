@@ -2,6 +2,7 @@
 import { NavLink } from 'react-router-dom';
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 
 
@@ -63,11 +64,19 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link text-white " to="SignUp">
+          <NavLink className="nav-link text-white " to="../SignUp">
             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i className="material-icons opacity-10">assignment</i>
             </div>
             <span className="nav-link-text ms-1">Sign Up</span>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link text-white " to="SignUp">
+            <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            <RiLogoutBoxLine id="logout"/>
+            </div>
+            <span className="nav-link-text ms-1">Logout</span>
           </NavLink>
         </li>
       </ul>

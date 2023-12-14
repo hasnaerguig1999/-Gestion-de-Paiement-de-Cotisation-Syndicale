@@ -10,6 +10,8 @@ import {
    DELETE_APARTEMENT_REQUEST,
    DELETE_APARTEMENT_SUCCESS,
    DELETE_APARTEMENT_FAILURE,
+   UPDATE_APARTMENT_STATUS
+   
 } from '../Actions/ApartementAction';
 
 const initialState = {
@@ -86,6 +88,15 @@ const Apartementreducer = (state = initialState, action) => {
         ...state,
         deleting: false,
         error: action.payload,
+      };
+      case UPDATE_APARTMENT_STATUS:
+      return {
+        ...state,
+        apartments: state.apartments.map((apartment) =>
+          apartment._id === action.payload.apartmentId
+            ? { ...apartment, status: action.payload.newStatus }
+            : apartment
+        ),
       };
     default:
       return state;
