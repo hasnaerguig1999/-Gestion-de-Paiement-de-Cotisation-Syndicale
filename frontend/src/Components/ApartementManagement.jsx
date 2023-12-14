@@ -10,7 +10,6 @@ import { MdDelete } from "react-icons/md";
 export default function ApartementManagement() {
   const dispatch = useDispatch();
   const apartments = useSelector((state) => {
-    // console.log(state); 
     return state.apartements.apartments;
   });
 

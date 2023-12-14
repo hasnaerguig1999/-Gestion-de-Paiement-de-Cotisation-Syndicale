@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getApartmentById, updateApartment } from '../redux/Store/Actions/ApartementAction';
-
+import { useNavigate } from 'react-router-dom';
 export default function EditApartement() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const apartment = useSelector((state) => state.apartements);
   console.log(apartment);
@@ -38,6 +39,7 @@ export default function EditApartement() {
 
   const handleSave = () => {
     dispatch(updateApartment(id, apartmentData));
+    navigate("/ApartementManagement");
   };
 
 

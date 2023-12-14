@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createApartment } from '../redux/Store/Actions/ApartementAction';
-
+import { useNavigate } from 'react-router-dom';
 export default function AddApartement() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [apartmentData, setApartmentData] = useState({
     client: '',
     number: '',
@@ -16,6 +17,7 @@ export default function AddApartement() {
 
   const handleSave = () => {
     dispatch(createApartment(apartmentData));
+    navigate("/ApartementManagement");
   };
   return (
     <>
