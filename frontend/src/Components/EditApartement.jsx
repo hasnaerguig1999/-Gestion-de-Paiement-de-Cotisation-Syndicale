@@ -7,11 +7,8 @@ export default function EditApartement() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-
-  const apartment = useSelector((state) => state.apartment); 
-
+  const apartment = useSelector((state) => state.apartements);
   console.log(apartment);
-
   const [apartmentData, setApartmentData] = useState({
     client: '',
     number: '',
@@ -19,32 +16,34 @@ export default function EditApartement() {
   });
 
   useEffect(() => {
-    // Dispatch an action to get apartment details by ID
-    if (id) {
-      dispatch(getApartmentById(id));
-    }
+    dispatch(getApartmentById(id));
+    console.log(apartmentData);
   }, [dispatch, id]);
+  console.log(apartment.apartment);
 
   useEffect(() => {
-    // Update local state when apartment details change
     if (apartment) {
-      setApartmentData(apartment);
-    }
-  }, [apartment]);
+      setApartmentData({
+            client: apartment.apartment?.client || '',
+            number: apartment.apartment?.number || '',
+            date: apartment.apartment?.date || '',
+        });
+      } 
+    }, [apartment]);
+    console.log(apartmentData);
 
   const handleInputChange = (e) => {
     setApartmentData({ ...apartmentData, [e.target.name]: e.target.value });
   };
 
   const handleSave = () => {
-    // Dispatch an action to update the apartment
     dispatch(updateApartment(id, apartmentData));
   };
 
-  // if (!apartment) {
-  //   return <p>Loading...</p>;
-  // }
 
+  if (!apartment) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
     <div className="main-content mt-0">

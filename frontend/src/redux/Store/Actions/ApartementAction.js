@@ -10,6 +10,9 @@ export const GET_APARTMENT_BY_ID_SUCCESS = 'GET_APARTMENT_BY_ID_SUCCESS';
 export const GET_APARTMENT_BY_ID_FAILURE = 'GET_APARTMENT_BY_ID_FAILURE';
 export const UPDATE_APARTMENT_SUCCESS = 'UPDATE_APARTMENT_SUCCESS';
 export const UPDATE_APARTMENT_FAILURE = 'UPDATE_APARTMENT_FAILURE';
+export const DELETE_APARTEMENT_REQUEST = 'DELETE_APARTEMENT_REQUEST';
+export const DELETE_APARTEMENT_SUCCESS = 'DELETE_APARTEMENT_SUCCESS';
+export const DELETE_APARTEMENT_FAILURE = 'DELETE_APARTEMENT_FAILURE';
 
 
 export const getAllApartmentsSuccess = (apartments) => ({
@@ -87,5 +90,31 @@ export const updateApartment = (id, updatedData) => async (dispatch) => {
     dispatch(updateApartmentSuccess(response.data));
   } catch (error) {
     dispatch(updateApartmentFailure(error.message));
+  }
+};
+
+const deleteApartementRequest = () => ({
+  type: DELETE_APARTEMENT_REQUEST,
+});
+
+const deleteApartementSuccess = (deletedApartement) => ({
+  type: DELETE_APARTEMENT_SUCCESS,
+  payload: deletedApartement,
+});
+
+const deleteApartementFailure = (error) => ({
+  type: DELETE_APARTEMENT_FAILURE,
+  payload: error,
+});
+export const deleteApartement = (apartementId) => async (dispatch) => {
+  try {
+    dispatch(deleteApartementRequest());
+    const response = await axios.delete(`/apartement/${apartementId}`);
+    
+    dispatch(deleteApartementSuccess(response.data));
+    alert('Apartment deleted successfully');
+  } catch (error) {
+    dispatch(deleteApartementFailure(error.message));
+    alert(`Error deleting apartment: ${error.message}`);
   }
 };

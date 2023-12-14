@@ -6,14 +6,16 @@ import {
    GET_APARTMENT_BY_ID_SUCCESS,
    GET_APARTMENT_BY_ID_FAILURE,
    UPDATE_APARTMENT_SUCCESS,
-   UPDATE_APARTMENT_FAILURE
+   UPDATE_APARTMENT_FAILURE,
+   DELETE_APARTEMENT_REQUEST,
+   DELETE_APARTEMENT_SUCCESS,
+   DELETE_APARTEMENT_FAILURE,
 } from '../Actions/ApartementAction';
 
 const initialState = {
   apartments: [],
-  
-
   error: null,
+  deleting: false,
 };
 
 const Apartementreducer = (state = initialState, action) => {
@@ -64,6 +66,27 @@ const Apartementreducer = (state = initialState, action) => {
             ...state,
             error: action.payload,
           };
+          case DELETE_APARTEMENT_REQUEST:
+      return {
+        ...state,
+        deleting: true,
+      };
+
+    case DELETE_APARTEMENT_SUCCESS:
+      return {
+        ...state,
+        deleting: false,
+        apartments: state.apartments.filter(
+          (apartment) => apartment._id !== action.payload._id
+        ),
+      };
+
+    case DELETE_APARTEMENT_FAILURE:
+      return {
+        ...state,
+        deleting: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

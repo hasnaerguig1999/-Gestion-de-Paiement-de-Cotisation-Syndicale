@@ -46,6 +46,7 @@ exports.updateApartementById = async (req, res) => {
       
       { new: true }
     );
+    
     if (!updatedApartement) {
       return res.status(404).json({ error: 'Apartement not found' });
     }
