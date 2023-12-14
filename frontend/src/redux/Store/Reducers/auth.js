@@ -1,11 +1,11 @@
-
+const storedToken = JSON.parse(localStorage.getItem('userData'));
 const initialState = {
   auth: {
-    user: null,
-    token: null,
+    user: storedToken,
+    token: storedToken.token,
     error: null,
     loading: false,
-    name: '',
+    name: storedToken.name,
   },
 };
 

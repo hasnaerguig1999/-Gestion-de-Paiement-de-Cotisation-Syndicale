@@ -6,8 +6,11 @@ import { useSelector } from 'react-redux';
 
 
 export default function Sidebar() {
-  // const name = useSelector(state => state.name);
-  const name = useSelector(state => state.auth.user?.name);
+
+  const name = useSelector(state => state.auth.auth.name);
+ 
+
+  
 
 
   return (
@@ -48,7 +51,7 @@ export default function Sidebar() {
             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i className="material-icons opacity-10">person</i>
             </div>
-            <span className="nav-link-text ms-1"> {name}!</span>
+            <span className="nav-link-text ms-1"> {name ? (name) : 'User'}</span>
           </NavLink>
         </li>
         <li className="nav-item">

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { signin } from '../redux/Store/Actions/AuthAction';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignIn = () => {
     dispatch(signin(email, password));
+    navigate("/ApartementManagement");
   };
   
 

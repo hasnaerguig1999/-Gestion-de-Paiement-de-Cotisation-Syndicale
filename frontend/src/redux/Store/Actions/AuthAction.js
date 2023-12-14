@@ -21,7 +21,6 @@ export const signup = (name, email, password) => async (dispatch) => {
 };
 
 
-
 export const signin = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: types.AUTH_REQUEST });
@@ -31,7 +30,13 @@ export const signin = (email, password) => async (dispatch) => {
       type: 'LOGIN_SUCCESS',
       payload: data,
     });
-    
+
+    localStorage.setItem('token', data.user.token);
+
   } catch (error) {
+    dispatch({
+      type: types.AUTH_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
   }
 };
