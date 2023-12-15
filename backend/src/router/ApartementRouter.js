@@ -6,7 +6,7 @@ const express = require('express');
 const {  createApartement, getAllApartements , updateApartementById  ,deleteApartementById,getApartementById  } = require('../controllers/Apartement');
 
 const Apartementrouter = express.Router();
-// Apartementrouter.use(authMiddleware);
+Apartementrouter.use(authMiddleware);
 // Apartementrouter.use(['/create', '/delete/:id', '/update/:id'], authMiddleware);
 
 Apartementrouter.get("/", getAllApartements);

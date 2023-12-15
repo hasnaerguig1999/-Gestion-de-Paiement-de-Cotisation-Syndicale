@@ -1,6 +1,14 @@
 import axios from 'axios';
 axios.defaults.baseURL = "http://localhost:8000"
+axios.interceptors.request.use((req) => {
+  if (!localStorage.getItem('userData')) return req
+  const user  =JSON.parse(localStorage.getItem('userData'))
+  const token = user.token
+      req.headers.Authorization =`Bearer ${token}`;
 
+
+    return req;
+  });
 
 export const GET_ALL_APARTMENTS_SUCCESS = 'GET_ALL_APARTMENTS_SUCCESS';
 export const GET_ALL_APARTMENTS_FAILURE = 'GET_ALL_APARTMENTS_FAILURE';

@@ -9,7 +9,7 @@ exports.createApartement = async (req, res) => {
     const savedApartement = await newApartement.save();
     res.status(201).json(savedApartement);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    throw error;
   }
 };
 
@@ -19,7 +19,7 @@ exports.getAllApartements = async (req, res) => {
     const apartements = await Apartement.find();
     res.status(200).json(apartements);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    throw error;
   }
 };
 
@@ -32,9 +32,11 @@ exports.getApartementById = async (req, res) => {
     }
     res.status(200).json(apartement);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    throw error;
+    }
 };
+
+
 
 // Update apartement by ID
 exports.updateApartementById = async (req, res) => {
@@ -52,8 +54,8 @@ exports.updateApartementById = async (req, res) => {
     }
     res.status(200).json(updatedApartement);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    throw error;
+    }
 };
 
 // Delete apartment by ID
@@ -65,6 +67,6 @@ exports.deleteApartementById = async (req, res) => {
     }
     res.status(200).json(deletedApartement);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    throw error;
+    }
 };

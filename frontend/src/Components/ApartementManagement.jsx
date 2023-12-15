@@ -49,7 +49,7 @@ export default function ApartementManagement() {
 
   useEffect(() => {
     dispatch(getAllApartments());
-  }, [dispatch]);
+  }, []);
   return (
     <>
       <div className="g-sidenav-show  bg-gray-200" style={{ height: '158vh' }} >
@@ -93,7 +93,7 @@ export default function ApartementManagement() {
                           </tr>
                         </thead>
                         <tbody>
-                          {apartments.map((apartment) => (
+                          {apartments && apartments.map((apartment) => (
                             <tr key={apartment._id}>
                               <td>
                                 <div className="d-flex px-2 py-1">
