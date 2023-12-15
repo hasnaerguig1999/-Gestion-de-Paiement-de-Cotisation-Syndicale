@@ -49,7 +49,7 @@ const SignUp = () => {
                             onChange={(e) => setName(e.target.value)}
                           />
                         </div>
-                         <div className="input-group input-group-outline mb-3">
+                        <div className="input-group input-group-outline mb-3">
                           <input
                             type="email"
                             className="form-control"

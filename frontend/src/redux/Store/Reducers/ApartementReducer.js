@@ -2,16 +2,16 @@ import {
   GET_ALL_APARTMENTS_SUCCESS,
   GET_ALL_APARTMENTS_FAILURE,
   CREATE_APARTMENT_SUCCESS,
-   CREATE_APARTMENT_FAILURE ,
-   GET_APARTMENT_BY_ID_SUCCESS,
-   GET_APARTMENT_BY_ID_FAILURE,
-   UPDATE_APARTMENT_SUCCESS,
-   UPDATE_APARTMENT_FAILURE,
-   DELETE_APARTEMENT_REQUEST,
-   DELETE_APARTEMENT_SUCCESS,
-   DELETE_APARTEMENT_FAILURE,
-   UPDATE_APARTMENT_STATUS
-   
+  CREATE_APARTMENT_FAILURE,
+  GET_APARTMENT_BY_ID_SUCCESS,
+  GET_APARTMENT_BY_ID_FAILURE,
+  UPDATE_APARTMENT_SUCCESS,
+  UPDATE_APARTMENT_FAILURE,
+  DELETE_APARTEMENT_REQUEST,
+  DELETE_APARTEMENT_SUCCESS,
+  DELETE_APARTEMENT_FAILURE,
+  UPDATE_APARTMENT_STATUS
+
 } from '../Actions/ApartementAction';
 
 const initialState = {
@@ -34,41 +34,41 @@ const Apartementreducer = (state = initialState, action) => {
         apartments: [],
         error: action.payload,
       };
-      case CREATE_APARTMENT_SUCCESS:
-        return {
-          ...state,
-          apartments: [...state.apartments, action.payload],
-          error: null,
-        };
-      case CREATE_APARTMENT_FAILURE:
-        return {
-          ...state,
-          error: action.payload,
-        };
-        case GET_APARTMENT_BY_ID_SUCCESS:
-          return {
-            ...state,
-            apartment: action.payload,
-            error: null,
-          };
-        case GET_APARTMENT_BY_ID_FAILURE:
-          return {
-            ...state,
-            apartment: null,
-            error: action.payload,
-          };
-        case UPDATE_APARTMENT_SUCCESS:
-          return {
-            ...state,
-            apartment: action.payload,
-            error: null,
-          };
-        case UPDATE_APARTMENT_FAILURE:
-          return {
-            ...state,
-            error: action.payload,
-          };
-          case DELETE_APARTEMENT_REQUEST:
+    case CREATE_APARTMENT_SUCCESS:
+      return {
+        ...state,
+        apartments: [...state.apartments, action.payload],
+        error: null,
+      };
+    case CREATE_APARTMENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case GET_APARTMENT_BY_ID_SUCCESS:
+      return {
+        ...state,
+        apartment: action.payload,
+        error: null,
+      };
+    case GET_APARTMENT_BY_ID_FAILURE:
+      return {
+        ...state,
+        apartment: null,
+        error: action.payload,
+      };
+    case UPDATE_APARTMENT_SUCCESS:
+      return {
+        ...state,
+        apartment: action.payload,
+        error: null,
+      };
+    case UPDATE_APARTMENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case DELETE_APARTEMENT_REQUEST:
       return {
         ...state,
         deleting: true,
@@ -89,7 +89,7 @@ const Apartementreducer = (state = initialState, action) => {
         deleting: false,
         error: action.payload,
       };
-      case UPDATE_APARTMENT_STATUS:
+    case UPDATE_APARTMENT_STATUS:
       return {
         ...state,
         apartments: state.apartments.map((apartment) =>

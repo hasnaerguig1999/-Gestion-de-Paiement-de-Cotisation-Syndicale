@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL="http://localhost:8000"
+axios.defaults.baseURL = "http://localhost:8000"
 
 
 export const GET_ALL_APARTMENTS_SUCCESS = 'GET_ALL_APARTMENTS_SUCCESS';
@@ -29,7 +29,7 @@ export const getAllApartmentsFailure = (error) => ({
 
 export const getAllApartments = () => async (dispatch) => {
   try {
-    const response = await axios.get('/apartement'); 
+    const response = await axios.get('/apartement');
     dispatch(getAllApartmentsSuccess(response.data));
   } catch (error) {
     dispatch(getAllApartmentsFailure(error.message));
@@ -48,7 +48,7 @@ export const createApartmentFailure = (error) => ({
 
 export const createApartment = (apartmentData) => async (dispatch) => {
   try {
-    const response = await axios.post('apartement', apartmentData); 
+    const response = await axios.post('apartement', apartmentData);
     dispatch(createApartmentSuccess(response.data));
   } catch (error) {
     dispatch(createApartmentFailure(error.message));
@@ -111,7 +111,7 @@ export const deleteApartement = (apartementId) => async (dispatch) => {
   try {
     dispatch(deleteApartementRequest());
     const response = await axios.delete(`/apartement/${apartementId}`);
-    
+
     dispatch(deleteApartementSuccess(response.data));
     alert('Apartment deleted successfully');
   } catch (error) {
@@ -122,11 +122,9 @@ export const deleteApartement = (apartementId) => async (dispatch) => {
 
 export const updateApartmentStatus = (apartmentId, newStatus) => async (dispatch) => {
   try {
-    // Make the API call to update the status
     const response = await axios.put(`/apartement/${apartmentId}`, { status: newStatus });
 
     if (response.status === 200) {
-      // If the API call is successful, dispatch the action to update the state
       dispatch({
         type: UPDATE_APARTMENT_STATUS,
         payload: { apartmentId, newStatus },
