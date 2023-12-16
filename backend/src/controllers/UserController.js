@@ -66,4 +66,12 @@ const register = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { login, register };
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.status(200).json({
+    success: true,
+    users
+  });
+});
+
+module.exports = { login, register,getAllUsers };

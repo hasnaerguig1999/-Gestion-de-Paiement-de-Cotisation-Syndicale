@@ -40,7 +40,8 @@ export const getAllApartments = () => async (dispatch) => {
     const response = await axios.get('/apartement');
     dispatch(getAllApartmentsSuccess(response.data));
   } catch (error) {
-    dispatch(getAllApartmentsFailure(error.message));
+    console.log(error);
+    dispatch(getAllApartmentsFailure(error.response?.data?.message));
   }
 };
 

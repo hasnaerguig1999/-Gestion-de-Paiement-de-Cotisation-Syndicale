@@ -45,3 +45,21 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem('token');
   localStorage.removeItem('userData');
 };
+
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    dispatch({ type: 'GET_ALL_USERS_REQUEST' });
+
+    const response = await axios.get('/auth');
+
+    dispatch({
+      type: 'GET_ALL_USERS_SUCCESS',
+      payload: response.data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_ALL_USERS_FAILURE',
+      payload: error.response ? error.response.data.error : error.message,
+    });
+  }
+};

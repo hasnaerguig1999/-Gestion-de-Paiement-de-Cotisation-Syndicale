@@ -1,12 +1,14 @@
 const storedToken = JSON.parse(localStorage.getItem('userData'));
 const initialState = {
   auth: {
+    users: [],
     user: storedToken,
     token: storedToken?.token,
     error: null,
     loading: false,
     isLoggedIn: Boolean(storedToken),
     name: storedToken?.name,
+    
   },
 };
 
@@ -71,6 +73,28 @@ const authreducer = (state = initialState, action) => {
         name: null,
         token: null,
       };
+      case 'GET_ALL_USERS_REQUEST':
+        return {
+           ...state, 
+           loading: true,
+            error: null
+           };
+           case 'GET_ALL_USERS_SUCCESS':
+            return {
+              ...state,
+              auth: {
+                ...state.auth,
+                loading: false,
+                users: action.payload, 
+                error: null,
+              },
+            };
+                 case 'GET_ALL_USERS_FAILURE':
+      return { 
+        ...state, 
+        loading: false,
+         error: action.payload
+         };
 
     default:
       return state;
