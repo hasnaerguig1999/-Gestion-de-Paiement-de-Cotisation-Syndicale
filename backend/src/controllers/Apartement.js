@@ -38,6 +38,8 @@ exports.getApartementById = async (req, res) => {
 
 
 
+
+
 // Update apartement by ID
 exports.updateApartementById = async (req, res) => {
   try {

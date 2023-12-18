@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebars/Sidebar'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,7 +52,6 @@ export default function Dashboard() {
                                                     <tr>
                                                         <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">syndic name</th>
                                                         <th className="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">syndic email</th>
-                                                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">syndic password</th>
                                                         <th className="text-secondary opacity-7"></th>
                                                         <th className="text-secondary opacity-7"></th>
 
@@ -77,7 +75,7 @@ export default function Dashboard() {
                                                                 <p className="text-xs font-weight-bold mb-0">{user.email}</p>
                                                             </td>
                                                             <td className="align-middle text-center">
-                                                                <span className="text-secondary text-xs font-weight-bold">{user.password}</span>
+                                                                <span className="text-secondary text-xs font-weight-bold"></span>
                                                             </td>
                                                             <td className="align-middle">
                                                                 <button className="btn border-none">

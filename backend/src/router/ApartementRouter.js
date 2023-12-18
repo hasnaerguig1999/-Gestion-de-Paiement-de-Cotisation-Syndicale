@@ -7,7 +7,6 @@ const {  createApartement, getAllApartements , updateApartementById  ,deleteApar
 
 const Apartementrouter = express.Router();
 Apartementrouter.use(authMiddleware);
-// Apartementrouter.use(['/create', '/delete/:id', '/update/:id'], authMiddleware);
 
 Apartementrouter.get("/", getAllApartements);
 Apartementrouter.post('/', createApartement);

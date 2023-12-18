@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState,useEffect,useCallback } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import { signin } from '../redux/Store/Actions/AuthAction';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,15 +8,25 @@ import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const auth = useSelector(state => state.auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignIn = () => {
-    dispatch(signin(email, password));
-    navigate("/ApartementManagement");
-  };
-
+  const handleSignIn = useCallback (async () => {
+    const role = dispatch(signin(email, password));
+    if (role === 'admin') {
+      navigate('/Dashboard');
+    } else {
+      navigate('/ApartementManagement');
+    }
+  }, [dispatch, email, password, navigate]);
+  
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      handleSignIn();
+    }
+  }, [auth.isAuthenticated, handleSignIn]);
 
   return (
     <>

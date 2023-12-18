@@ -1,4 +1,3 @@
-
 import { NavLink } from 'react-router-dom';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,19 +5,17 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { logout } from '../redux/Store/Actions/AuthAction';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Sidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useSelector(state => state.auth.auth.name);
-
+  const isLoggedIn = useSelector(state => state.auth.auth.isLoggedIn);
 
   const handleLogout = () => {
     dispatch(logout());
     navigate('/SignIn');
   }
-
 
   return (
     <>
@@ -53,43 +50,49 @@ export default function Sidebar() {
               <li className="nav-item mt-3">
                 <h6 className="ps-0 ms-6 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link text-white " to="../SuperAdmin">
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">person</i>
-                  </div>
-                  <span className="nav-link-text ms-1"> {name ? (name) : 'User'}</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link text-white " to="../SignIn">
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">login</i>
-                  </div>
-                  <span className="nav-link-text ms-1">Sign In</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link text-white " to="../SignUp">
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">assignment</i>
-                  </div>
-                  <span className="nav-link-text ms-1">Sign Up</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link text-white " to="../SignIn" onClick={handleLogout}>
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <RiLogoutBoxLine id="logout" />
-                  </div>
-                  <span className="nav-link-text ms-1">Logout</span>
-                </NavLink>
-              </li>
+              {isLoggedIn? (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-white " to="../SuperAdmin">
+                      <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="material-icons opacity-10">person</i>
+                      </div>
+                      <span className="nav-link-text ms-1"> {name ? (name) : 'User'}</span>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-white " to="../SignIn" onClick={handleLogout}>
+                      <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <RiLogoutBoxLine id="logout" />
+                      </div>
+                      <span className="nav-link-text ms-1">Logout</span>
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-white " to="../SignIn">
+                      <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="material-icons opacity-10">login</i>
+                      </div>
+                      <span className="nav-link-text ms-1">Sign In</span>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link text-white " to="../SignUp">
+                      <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="material-icons opacity-10">assignment</i>
+                      </div>
+                      <span className="nav-link-text ms-1">Sign Up</span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </aside>
       </div>
-
     </>
   )
 }

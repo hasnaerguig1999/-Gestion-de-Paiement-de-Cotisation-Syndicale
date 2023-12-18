@@ -116,7 +116,7 @@ export default function EditApartement() {
                       </form>
                     </div>
                     <div className="card-footer text-center pt-0 px-lg-2 px-1">
-                      <a href="./Dashboard" className="text-primary text-gradient font-weight-bold">return to dashboard</a>
+                      <a href="" className="text-primary text-gradient font-weight-bold">return to dashboard</a>
 
                     </div>
                   </div>
