@@ -2,13 +2,13 @@ import axios from 'axios';
 axios.defaults.baseURL = "http://localhost:8000"
 axios.interceptors.request.use((req) => {
   if (!localStorage.getItem('userData')) return req
-  const user  =JSON.parse(localStorage.getItem('userData'))
+  const user = JSON.parse(localStorage.getItem('userData'))
   const token = user.token
-      req.headers.Authorization =`Bearer ${token}`;
+  req.headers.Authorization = `Bearer ${token}`;
 
 
-    return req;
-  });
+  return req;
+});
 
 export const GET_ALL_APARTMENTS_SUCCESS = 'GET_ALL_APARTMENTS_SUCCESS';
 export const GET_ALL_APARTMENTS_FAILURE = 'GET_ALL_APARTMENTS_FAILURE';
@@ -21,7 +21,8 @@ export const UPDATE_APARTMENT_FAILURE = 'UPDATE_APARTMENT_FAILURE';
 export const DELETE_APARTEMENT_REQUEST = 'DELETE_APARTEMENT_REQUEST';
 export const DELETE_APARTEMENT_SUCCESS = 'DELETE_APARTEMENT_SUCCESS';
 export const DELETE_APARTEMENT_FAILURE = 'DELETE_APARTEMENT_FAILURE';
-export const UPDATE_APARTMENT_STATUS = 'UPDATE_APARTMENT_STATUS';
+export const ADD_PAYMENT_SUCCESS = 'ADD_PAYMENT_SUCCESS';
+export const ADD_PAYMENT_FAILURE = 'ADD_PAYMENT_FAILURE';
 
 
 export const getAllApartmentsSuccess = (apartments) => ({
@@ -129,17 +130,26 @@ export const deleteApartement = (apartementId) => async (dispatch) => {
   }
 };
 
-export const updateApartmentStatus = (apartmentId, newStatus) => async (dispatch) => {
-  try {
-    const response = await axios.put(`/apartement/${apartmentId}`, { status: newStatus });
 
-    if (response.status === 200) {
-      dispatch({
-        type: UPDATE_APARTMENT_STATUS,
-        payload: { apartmentId, newStatus },
-      });
-    }
+
+
+const addPaymentSuccess = (apartment) => ({
+  type: 'ADD_PAYMENT_SUCCESS',
+  payload: apartment,
+});
+
+// Action creator for failed payment addition
+const addPaymentFailure = (error) => ({
+  type: 'ADD_PAYMENT_FAILURE',
+  payload: error,
+});
+
+// Async action creator for adding payment
+export const addPayment = (apartmentId, paymentData) => async (dispatch) => {
+  try {
+    const response = await axios.post(`/apartement/${apartmentId}`, paymentData);
+    dispatch(addPaymentSuccess(response.data));
   } catch (error) {
-    console.error('Error updating apartment status:', error);
+    dispatch(addPaymentFailure(error.message));
   }
 };

@@ -1,4 +1,4 @@
-// const { ApartementModel } = require("../models/Apartement");
+
 const Apartement= require('../models/Apartement');
 
 // Create a new apartement
@@ -71,4 +71,31 @@ exports.deleteApartementById = async (req, res) => {
   } catch (error) {
     throw error;
     }
+};
+
+exports.addPayment = async (req, res) => {
+  const { id } = req.params; // ID of the apartment
+  const { month } = req.body; 
+
+  try {
+    const apartment = await Apartement.findById(id);
+    if (!apartment) {
+      return res.status(404).json({ message: 'Apartment not found' });
+    }
+
+    // Add the month to the paidMonths array
+    if (!apartment.paidMonths.includes(month)) {
+     
+      apartment.paidMonths.push(month);
+
+      // Save the updated apartment
+      const updatedApartment = await apartment.save();
+
+      res.status(200).json(updatedApartment);
+    } else {
+      res.status(400).json({ message: 'Payment for this month already exists' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

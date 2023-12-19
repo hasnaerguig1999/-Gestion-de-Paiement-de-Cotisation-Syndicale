@@ -10,11 +10,13 @@ import {
   DELETE_APARTEMENT_REQUEST,
   DELETE_APARTEMENT_SUCCESS,
   DELETE_APARTEMENT_FAILURE,
-  UPDATE_APARTMENT_STATUS
+  ADD_PAYMENT_SUCCESS,
+  ADD_PAYMENT_FAILURE,
 
 } from '../Actions/ApartementAction';
 
 const initialState = {
+
   apartments: [],
   error: null,
   deleting: false,
@@ -89,14 +91,18 @@ const Apartementreducer = (state = initialState, action) => {
         deleting: false,
         error: action.payload,
       };
-    case UPDATE_APARTMENT_STATUS:
+    case ADD_PAYMENT_SUCCESS:
       return {
         ...state,
         apartments: state.apartments.map((apartment) =>
-          apartment._id === action.payload.apartmentId
-            ? { ...apartment, status: action.payload.newStatus }
-            : apartment
+          apartment._id === action.payload._id ? action.payload : apartment
         ),
+        error: null,
+      };
+    case ADD_PAYMENT_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

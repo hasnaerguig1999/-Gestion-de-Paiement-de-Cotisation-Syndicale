@@ -50,7 +50,7 @@ export default function Sidebar() {
               <li className="nav-item mt-3">
                 <h6 className="ps-0 ms-6 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
               </li>
-              {isLoggedIn? (
+              {isLoggedIn ? (
                 <>
                   <li className="nav-item">
                     <NavLink className="nav-link text-white " to="../SuperAdmin">

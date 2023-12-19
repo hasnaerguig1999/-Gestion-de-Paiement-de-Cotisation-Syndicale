@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebars/Sidebar'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllApartments, deleteApartement, updateApartmentStatus } from '../redux/Store/Actions/ApartementAction';
+import { getAllApartments, deleteApartement, addPayment } from '../redux/Store/Actions/ApartementAction';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Calendar from '../Calendars/Calendar'
+
 
 
 export default function ApartementManagement() {
@@ -12,6 +14,8 @@ export default function ApartementManagement() {
   const apartments = useSelector((state) => {
     return state.apartements.apartments;
   });
+  const [selectedPaymentMonth, setSelectedPaymentMonth] = useState(new Date());
+
 
   const handleDelete = (apartmentId) => {
     if (window.confirm('Are you sure you want to delete this apartment?')) {
@@ -39,17 +43,32 @@ export default function ApartementManagement() {
   };
 
 
-  const handleStatusChange = (apartmentId, currentStatus) => {
-    const newStatus = !currentStatus;
-    dispatch(updateApartmentStatus(apartmentId, newStatus));
-    showAlert(`Apartment status changed to ${newStatus ? 'Payé' : 'Impayé'}!`, '#E91E63');
-  };
+
 
 
 
   useEffect(() => {
     dispatch(getAllApartments());
   }, []);
+
+
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+
+  // Fonction pour changer le mois dans le composant Calendar
+  const handleMonthChange = (newMonth) => {
+    setSelectedMonth(newMonth);
+    setSelectedPaymentMonth(newMonth);
+  };
+  const handleAddPayment = (apartmentId) => {
+    const monthYearString = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long' }).format(selectedPaymentMonth);
+    const paymentData = {
+      month: monthYearString,
+    };
+
+    dispatch(addPayment(apartmentId, paymentData));
+    showAlert(`Payment for ${monthYearString} added successfully!`, '#4CAF50');
+  };
+
   return (
     <>
       <div className="g-sidenav-show  bg-gray-200" style={{ height: '158vh' }} >
@@ -70,6 +89,9 @@ export default function ApartementManagement() {
             </div>
           </nav>
           <div className="container-fluid py-4" >
+            <div className='container' id="contai">
+              <Calendar onMonthChange={handleMonthChange} />
+            </div>
             <div className="row">
               <div className="col-12">
                 <div className="card my-2 w-75" id="containere">
@@ -108,10 +130,16 @@ export default function ApartementManagement() {
                               <td>
                                 <p className="text-xs font-weight-bold mb-0">{apartment.number}</p>
                               </td>
-                              <td className="align-middle text-center text-sm">
-                                <button className={`btn border-none badge badge-sm ${apartment.status ? 'bg-gradient-success' : 'bg-gradient-secondary'}`} onClick={() => handleStatusChange(apartment._id, apartment.status)}>
-                                  {apartment.status ? 'Payé' : 'Impayé'}
-                                </button>
+                              <td className="align-middle text-center">
+                                {apartment.paidMonths.includes(selectedMonth.toLocaleString('en', { month: 'long', year: 'numeric' })) ? (
+                                  <button className="btn bg-gradient-success">
+                                    Paid
+                                  </button>
+                                ) : (
+                                  <button className="btn bg-gradient-secondary" onClick={() => handleAddPayment(apartment._id)}>
+                                    Add Payment
+                                  </button>
+                                )}
                               </td>
                               <td className="align-middle text-center">
                                 <span className="text-secondary text-xs font-weight-bold">{apartment.date}</span>

@@ -7,6 +7,10 @@ import AddApartement from './Components/AddApartement'
 import EditApartement from './Components/EditApartement'
 import AdminRoute from './routes/AdminRoute'
 import UserRoute from './routes/UserRoute'
+import Month from './Calendars/Month'
+import Calendar from './Calendars/Calendar'
+
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 
@@ -27,20 +31,16 @@ function App() {
              <Route path="/EditApartement" element={<UserRoute><EditApartement /></UserRoute>} >
               <Route path="/EditApartement/:id" element={<EditApartement />} />
              </Route>
-            {/* <Route path="/AddApartement" element={<AddApartement />}></Route> */}
-            {/* <Route path="/Dashboard" element={<Dashboard />}></Route> */}
-            {/* <Route path="/Dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} /> */}
             <Route path="/Dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
              <Route path="/SignIn" element={<SignIn />} />
              <Route path="/SignUp" element={<SignUp />} />
-            {/* <Route path="/EditApartement" element={<EditApartement />}>
-              <Route path="/EditApartement/:id" element={<EditApartement />} />
-              
-            </Route> */}
             <Route path="/AddApartement" element={<AddApartement />}></Route>
             <Route path="/ApartementManagement" element={<ApartementManagement />}></Route>
-          </Routes>
+            <Route path="/Month" element={<Month />}></Route>
+            <Route path="/Calendar" element={<Calendar />}></Route>
 
+          </Routes>
+      
 
         </Router>
       </div>

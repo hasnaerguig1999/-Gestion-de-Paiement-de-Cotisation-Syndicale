@@ -22,7 +22,11 @@ const ApartmentSchema = new Schema({
   date: {
     type: Date,
     required: [true, "Date is required"],
-  }
+  },
+  paidMonths: {
+    type: [String],
+    default: [],
+  },
 });
 
 module.exports = mongoose.model("Apartment", ApartmentSchema);

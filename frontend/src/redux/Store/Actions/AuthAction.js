@@ -35,7 +35,7 @@ export const signin = (email, password) => async (dispatch) => {
     });
 
     localStorage.setItem('token', data.user.token);
-    localStorage.setItem('role', data.user.role); 
+    localStorage.setItem('role', data.user.role);
 
     return data.user.role;
 
