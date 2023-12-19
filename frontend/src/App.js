@@ -9,6 +9,7 @@ import AdminRoute from './routes/AdminRoute'
 import UserRoute from './routes/UserRoute'
 import Month from './Calendars/Month'
 import Calendar from './Calendars/Calendar'
+import  PrintableInvoice  from './facture/PrintableInvoice '
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
@@ -38,6 +39,7 @@ function App() {
             <Route path="/ApartementManagement" element={<ApartementManagement />}></Route>
             <Route path="/Month" element={<Month />}></Route>
             <Route path="/Calendar" element={<Calendar />}></Route>
+            <Route path="/ PrintableInvoice " element={< PrintableInvoice />}></Route>
 
           </Routes>
       

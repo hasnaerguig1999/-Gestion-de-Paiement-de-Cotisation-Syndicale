@@ -6,6 +6,9 @@ import { getAllApartments, deleteApartement, addPayment } from '../redux/Store/A
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Calendar from '../Calendars/Calendar'
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PrintableInvoice from '../facture/PrintableInvoice ';
+
 
 
 
@@ -53,8 +56,10 @@ export default function ApartementManagement() {
 
 
   const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [selectedApartment, setSelectedApartment] = useState(null);
 
-  // Fonction pour changer le mois dans le composant Calendar
+
+
   const handleMonthChange = (newMonth) => {
     setSelectedMonth(newMonth);
     setSelectedPaymentMonth(newMonth);
@@ -67,6 +72,11 @@ export default function ApartementManagement() {
 
     dispatch(addPayment(apartmentId, paymentData));
     showAlert(`Payment for ${monthYearString} added successfully!`, '#4CAF50');
+  };
+
+
+  const handlePrintInvoice = (apartment) => {
+    setSelectedApartment(apartment);
   };
 
   return (
@@ -106,11 +116,13 @@ export default function ApartementManagement() {
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
-                            <th className="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">Number</th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number</th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">download</th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">action</th>
+                            <th className="text-secondary opacity-7"> </th>
+
 
                           </tr>
                         </thead>
@@ -144,6 +156,14 @@ export default function ApartementManagement() {
                               <td className="align-middle text-center">
                                 <span className="text-secondary text-xs font-weight-bold">{apartment.date}</span>
                               </td>
+                              <td className="align-middle">
+                                <PDFDownloadLink document={<PrintableInvoice apartment={apartment} />} fileName={`invoice_${apartment.number}.pdf`}>
+                                  {({ blob, url, loading, error }) =>
+                                    loading ? 'Loading document...' : 'Download Invoice'
+                                  }
+                                </PDFDownloadLink>
+                              </td>
+
                               <td className="align-middle">
                                 <button className="btn border-none">
                                   <Link to={`/EditApartement/${apartment._id}`} className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
