@@ -32,8 +32,8 @@ NODE_ENV=development
 ````
 j'ai déja fait un exemple sur .env.example
 Pour ignorer les dossiers node_modules et le fichier .env en utilisant un fichier .gitignore, vous devez simplement ajouter leurs noms au fichier. Voici comment vous pouvez le faire :
-4-Créez un fichier .gitignore à la racine de votre projet si vous n'en avez pas déjà un.
-5-Ouvrez le fichier .gitignore et ajoutez les lignes suivantes :
+4.Créez un fichier .gitignore à la racine de votre projet si vous n'en avez pas déjà un.
+5.Ouvrez le fichier .gitignore et ajoutez les lignes suivantes :
 ````
 node_modules/
 .env
@@ -43,6 +43,29 @@ node_modules/
 ````
 npm run dev
 ````
+
+et pour la partié frontend
+````
+cd frontend
+````
+6.aprés Installez les dépendances :
+````
+npm install
+````
+# Utilisation
+
+````
+npm start
+````
+
+Pour ignorer les dossiers node_modules et le fichier .env en utilisant un fichier .gitignore, vous devez simplement ajouter leurs noms au fichier. Voici comment vous pouvez le faire :
+7.Créez un fichier .gitignore à la racine de votre projet si vous n'en avez pas déjà un.
+8.Ouvrez le fichier .gitignore et ajoutez les lignes suivantes :
+````
+node_modules/
+````
+
+
 
 
 
