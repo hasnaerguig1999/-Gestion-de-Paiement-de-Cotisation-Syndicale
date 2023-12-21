@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import { signup } from '../redux/Store/Actions/AuthAction';
+import { Navigate } from 'react-router-dom';
 
 
 
@@ -9,12 +10,19 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {isLoggedIn , role} = useSelector(state => state.auth.auth);
 
   const handleSignUp = () => {
     dispatch(signup(name, email, password));
+    
   };
-
-
+  if (isLoggedIn) {
+    if(role === 'user'){
+      return <Navigate to="/ApartementManagement" />;
+    }else if(role === 'admin'){
+      return <Navigate to="/Dashboard" />;
+    }
+  }else{
   return (
     <>
       <div className="main-content mt-0">
@@ -90,6 +98,6 @@ const SignUp = () => {
         </div>
       </div>
     </>
-  )
+  )}
 }
 export default SignUp;

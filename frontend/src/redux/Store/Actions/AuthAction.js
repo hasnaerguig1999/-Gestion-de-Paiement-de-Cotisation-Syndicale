@@ -34,11 +34,15 @@ export const signin = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem('token', data.user.token);
-    localStorage.setItem('role', data.user.role);
-
-    return data.user.role;
-
+    localStorage.setItem('userData', JSON.stringify(data.user));
+    localStorage.setItem('token', JSON.stringify(data.user.token));
+    localStorage.setItem('role', JSON.stringify(data.user.role));
+    localStorage.setItem('userId', JSON.stringify(data.user.id));
+    if (data.user.role === 'user') {
+      window.location.href = "/ApartementManagement";
+    } else if (data.user.role === 'admin') {
+      window.location.href = "/Dashboard";
+    }
   } catch (error) {
     dispatch({
       type: types.AUTH_FAIL,
@@ -47,9 +51,9 @@ export const signin = (email, password) => async (dispatch) => {
   }
 };
 export const logout = () => (dispatch) => {
+  window.location.href = "/SignIn"; 
+  localStorage.clear();
   dispatch({ type: types.LOGOUT });
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
 };
 
 export const getAllUsers = () => async (dispatch) => {

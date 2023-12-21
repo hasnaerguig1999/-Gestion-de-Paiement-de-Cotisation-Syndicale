@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
   },
   header: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 26,
+    fontWeight: 'small',
     marginBottom: 20,
     color: '#2C3E50',
   },

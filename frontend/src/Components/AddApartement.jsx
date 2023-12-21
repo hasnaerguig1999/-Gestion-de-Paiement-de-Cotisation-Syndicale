@@ -54,9 +54,6 @@ export default function AddApartement() {
                         <div className="input-group input-group-outline mb-3">
                           <input type="text" className="form-control" placeholder="Numero" name="number" onChange={handleInputChange} />
                         </div>
-                        <div className="input-group input-group-outline mb-3">
-                          <input type="date" className="form-control" name="date" onChange={handleInputChange} />
-                        </div>
                         <div className="text-center">
                           <button type="button" className="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0"
                             onClick={handleSave}

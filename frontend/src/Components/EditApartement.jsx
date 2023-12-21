@@ -9,18 +9,16 @@ export default function EditApartement() {
   const navigate = useNavigate();
 
   const apartment = useSelector((state) => state.apartements);
-  console.log(apartment);
   const [apartmentData, setApartmentData] = useState({
     client: '',
     number: '',
-    date: '',
   });
 
   useEffect(() => {
     dispatch(getApartmentById(id));
     console.log(apartmentData);
-  }, [dispatch, id]);
-  console.log(apartment.apartment);
+  }, [id]);
+  // console.log(apartment.apartment);
 
 
   useEffect(() => {
@@ -28,11 +26,9 @@ export default function EditApartement() {
       setApartmentData({
         client: apartment.apartment?.client || '',
         number: apartment.apartment?.number || '',
-        date: apartment.apartment?.date || '',
       });
     }
   }, [apartment]);
-  console.log(apartmentData);
 
   const handleInputChange = (e) => {
     setApartmentData({ ...apartmentData, [e.target.name]: e.target.value });
@@ -92,15 +88,6 @@ export default function EditApartement() {
                             placeholder="Numero"
                             name="number"
                             value={apartmentData.number || ''}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="input-group input-group-outline mb-3">
-                          <input
-                            type="date"
-                            className="form-control"
-                            name="date"
-                            value={apartmentData.date || ''}
                             onChange={handleInputChange}
                           />
                         </div>

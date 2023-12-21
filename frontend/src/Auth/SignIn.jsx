@@ -1,6 +1,7 @@
-import React, { useState,useEffect,useCallback } from 'react';
+import React, { useState} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { signin } from '../redux/Store/Actions/AuthAction';
+import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -9,25 +10,25 @@ import { useNavigate } from 'react-router-dom';
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector(state => state.auth);
+  const {isLoggedIn , role} = useSelector(state => state.auth.auth);
+  // console.log(isLoggedIn)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignIn = useCallback (async () => {
-    const role = dispatch(signin(email, password));
-    if (role === 'admin') {
-      navigate('/Dashboard');
-    } else {
-      navigate('/ApartementManagement');
-    }
-  }, [dispatch, email, password, navigate]);
+  const handleSignIn =  () => {
+    
+    dispatch(signin(email, password));
+    
+  }
   
-  useEffect(() => {
-    if (auth.isAuthenticated) {
-      handleSignIn();
+ 
+  if (isLoggedIn) {
+    if(role === 'user'){
+      return <Navigate to="/ApartementManagement" />;
+    }else if(role === 'admin'){
+      return <Navigate to="/Dashboard" />;
     }
-  }, [auth.isAuthenticated, handleSignIn]);
-
+  }else{
   return (
     <>
       <div className="main-content mt-0">
@@ -88,6 +89,6 @@ const SignIn = () => {
         </div>
       </div>
     </>
-  )
+  )}
 }
 export default SignIn;

@@ -4,7 +4,7 @@ const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
 // @Desc Login
-// @Route /api/auth/login
+// @Route /auth/login
 // @Method POST
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -23,7 +23,7 @@ const login = asyncHandler(async (req, res) => {
         email: user.email,
         name: user.name,
         role: user.role, 
-        token: generateToken(user._id)
+        token: generateToken(user._id),
       }
     });
   } else {
@@ -47,12 +47,7 @@ const register = asyncHandler(async (req, res) => {
     name,
     password
   });
-  // try {
-  //   await user.validate();
-  // } catch (error) {
-  //   res.status(400).json({ success: false, error: error.message });
-  //   return;
-  // }
+ 
 
   await user.save();
 
@@ -61,7 +56,7 @@ const register = asyncHandler(async (req, res) => {
     user: {
       email: user.email,
       name: user.name,
-      // role: user.role 
+
     }
   });
 });

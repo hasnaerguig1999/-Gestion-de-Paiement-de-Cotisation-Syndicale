@@ -14,14 +14,10 @@ const ApartmentSchema = new Schema({
     type: String,
     required: [true, "Number is required"],
   },
-  status: {
-    type: Boolean,
-    default: false,
-    trim: true,
-  },
-  date: {
-    type: Date,
-    required: [true, "Date is required"],
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   paidMonths: {
     type: [String],

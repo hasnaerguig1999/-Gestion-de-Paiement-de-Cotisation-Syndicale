@@ -5,7 +5,7 @@ const isUser = () => {
   const user = JSON.parse(localStorage.getItem('userData'));
 
 
-  return user && user.role === 'user';
+return user && user.role === 'user';
 };
 
 const UserRoute = ({ children }) => {

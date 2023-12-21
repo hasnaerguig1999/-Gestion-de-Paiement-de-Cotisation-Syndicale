@@ -11,7 +11,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         dispatch(getAllUsers());
-    }, []);
+    }, [dispatch]);
 
     if (!users) {
         return <p>No users found.</p>;
@@ -27,8 +27,8 @@ export default function Dashboard() {
                             <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                                 <div className="ms-md-auto pe-md-3 d-flex align-items-center">
                                     <div className="input-group input-group-outline">
-                                        <button className="btn btn-outline-primary btn-sm mb-0 me-0 p-0">
-                                            <a className="nav-link text-primary" >Welcome Admin</a>
+                                        <button className="btn btn-outline-primary btn-sm mb-0 me-0 p-0" id="btn-admin">
+                                            <p className="nav-link text-primary" >Welcome Admin</p>
                                         </button>
 
                                     </div>
@@ -79,9 +79,9 @@ export default function Dashboard() {
                                                             </td>
                                                             <td className="align-middle">
                                                                 <button className="btn border-none">
-                                                                    <a href="" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                                    <p  className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
 
-                                                                    </a>
+                                                                    </p>
                                                                 </button>
                                                             </td>
                                                         </tr>

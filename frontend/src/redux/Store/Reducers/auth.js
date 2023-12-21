@@ -4,10 +4,12 @@ const initialState = {
     users: [],
     user: storedToken,
     token: storedToken?.token,
+    role: storedToken?.role,
     error: null,
     loading: false,
     isLoggedIn: Boolean(storedToken),
     name: storedToken?.name,
+    
     
   },
 };
@@ -72,6 +74,7 @@ const authreducer = (state = initialState, action) => {
         ...state,
         name: null,
         token: null,
+        isLoggedIn: false,
       };
       case 'GET_ALL_USERS_REQUEST':
         return {

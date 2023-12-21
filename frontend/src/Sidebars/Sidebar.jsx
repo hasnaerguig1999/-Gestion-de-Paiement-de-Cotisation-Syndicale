@@ -16,6 +16,7 @@ export default function Sidebar() {
     dispatch(logout());
     navigate('/SignIn');
   }
+  
 
   return (
     <>
@@ -46,9 +47,6 @@ export default function Sidebar() {
                   </div>
                   <span className="nav-link-text ms-1"> Apartment Management</span>
                 </NavLink>
-              </li>
-              <li className="nav-item mt-3">
-                <h6 className="ps-0 ms-6 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
               </li>
               {isLoggedIn ? (
                 <>

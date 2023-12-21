@@ -97,9 +97,11 @@ export const getApartmentById = (id) => async (dispatch) => {
 
 export const updateApartment = (id, updatedData) => async (dispatch) => {
   try {
-    const response = await axios.put(`/apartement/${id}`, updatedData);
+    const response = await axios.put('/apartement/'+id, updatedData);
+    // console.log(response);
     dispatch(updateApartmentSuccess(response.data));
   } catch (error) {
+    console.log(error);
     dispatch(updateApartmentFailure(error.message));
   }
 };

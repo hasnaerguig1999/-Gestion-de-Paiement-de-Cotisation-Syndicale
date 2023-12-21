@@ -4,11 +4,12 @@ const Apartement= require('../models/Apartement');
 // Create a new apartement
 exports.createApartement = async (req, res) => {
   try {
-    const { client, number, status, date } = req.body;
-    const newApartement = new Apartement({ client, number, status, date });
+    let creator = req.id; 
+    const { client, number} = req.body;
+    const newApartement = new Apartement({ client, number,  creator });
     const savedApartement = await newApartement.save();
     res.status(201).json(savedApartement);
-  } catch (error) {
+  }catch (error) {
     throw error;
   }
 };
@@ -16,7 +17,7 @@ exports.createApartement = async (req, res) => {
 // Get all apartements
 exports.getAllApartements = async (req, res) => {
   try {
-    const apartements = await Apartement.find();
+    const apartements = await Apartement.find({ creator: req.id});
     res.status(200).json(apartements);
   } catch (error) {
     throw error;
@@ -26,7 +27,7 @@ exports.getAllApartements = async (req, res) => {
 // Get apartementby ID
 exports.getApartementById = async (req, res) => {
   try {
-    const apartement = await Apartement.findById(req.params.id);
+    const apartement = await Apartement.findOne({ _id: req.params.id, creator: req.id});
     if (!apartement) {
       return res.status(404).json({ error: 'Apartement not found' });
     }
@@ -39,33 +40,31 @@ exports.getApartementById = async (req, res) => {
 
 
 
-
-// Update apartement by ID
+// Update apartment by ID
 exports.updateApartementById = async (req, res) => {
-  try {
-    const updatedApartement = await Apartement.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      
-      
-      { new: true }
+  try { 
+    const updatedApartement = await Apartement.findOneAndUpdate(
+      { _id: req.params.id, creator: req.id }, 
+      req.body, 
+      { new: true } 
     );
     
     if (!updatedApartement) {
-      return res.status(404).json({ error: 'Apartement not found' });
+      return res.status(404).json({ error: 'Apartment not found' });
     }
     res.status(200).json(updatedApartement);
   } catch (error) {
-    throw error;
-    }
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // Delete apartment by ID
 exports.deleteApartementById = async (req, res) => {
   try {
-    const deletedApartement = await Apartement.findByIdAndDelete(req.params.id);
+    const deletedApartement = await Apartement.findOneAndDelete({_id: req.params.id, creator: req.id});
     if (!deletedApartement) {
       return res.status(404).json({ error: 'Apartment not found' });
+      
     }
     res.status(200).json(deletedApartement);
   } catch (error) {
@@ -74,16 +73,19 @@ exports.deleteApartementById = async (req, res) => {
 };
 
 exports.addPayment = async (req, res) => {
-  const { id } = req.params; // ID of the apartment
-  const { month } = req.body; 
+  const { id } = req.params; 
+  const { month } = req.body;
+  const creator = req.id;
+  
+
 
   try {
-    const apartment = await Apartement.findById(id);
+  
+    const apartment = await Apartement.findOne({ _id: id, creator });
+
     if (!apartment) {
       return res.status(404).json({ message: 'Apartment not found' });
     }
-
-    // Add the month to the paidMonths array
     if (!apartment.paidMonths.includes(month)) {
      
       apartment.paidMonths.push(month);
